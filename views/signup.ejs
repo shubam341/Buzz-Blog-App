@@ -5,12 +5,57 @@
     <%- include('./partials/head') %>     
     <title>Sign up</title>
     <style>
-        /* Added box-shadow to form for a cleaner, modern look */
+        /* Dark theme for the entire page */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Centering the form with a modern dark card style */
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
         form {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #1e1e1e;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
             padding: 20px;
-            border-radius: 8px;
-            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        .form-label {
+            color: #b3b3b3;
+        }
+
+        .form-control {
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
+
+        .form-control:focus {
+            background-color: #333;
+            border-color: #6200ea;
+            box-shadow: none;
+            color: #fff;
+        }
+
+        /* Accent color for the submit button */
+        .btn-primary {
+            background-color: #6200ea;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #3700b3;
+        }
+
+        /* Subtle text color for help text */
+        .form-text {
+            color: #757575;
         }
     </style>
 </head>
@@ -18,7 +63,7 @@
     
     <%- include('./partials/nav') %> 
     
-    <div class="container mt-4">
+    <div class="container">
         <form action="/user/signup" method="post">
             <div class="mb-3">
                 <label for="fullName" class="form-label">Full Name</label>
@@ -45,7 +90,7 @@
                id="exampleInputPassword1" >
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
           </form>
     </div>
 

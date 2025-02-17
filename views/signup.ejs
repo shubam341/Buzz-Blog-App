@@ -5,57 +5,60 @@
     <%- include('./partials/head') %>     
     <title>Sign up</title>
     <style>
-        /* Dark theme for the entire page */
+        /* Vibrant gradient background */
         body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 50%, #FF99AC 100%);
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            padding: 20px;
         }
 
-        /* Centering the form with a modern dark card style */
+        /* Centering the form with a modern card style */
         .container {
             max-width: 400px;
             margin: 50px auto;
         }
 
         form {
-            background-color: #1e1e1e;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            border-radius: 12px;
         }
 
         .form-label {
-            color: #b3b3b3;
+            font-weight: bold;
+            color: #555;
         }
 
         .form-control {
-            background-color: #2c2c2c;
-            color: #e0e0e0;
-            border: 1px solid #444;
+            background-color: #f9f9f9;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         .form-control:focus {
-            background-color: #333;
-            border-color: #6200ea;
-            box-shadow: none;
-            color: #fff;
+            border-color: #00bfa5;
+            box-shadow: 0 0 5px rgba(0, 191, 165, 0.5);
+            outline: none;
         }
 
         /* Accent color for the submit button */
         .btn-primary {
-            background-color: #6200ea;
+            background-color: #00bfa5;
             border: none;
             transition: background-color 0.3s ease;
+            color: white;
         }
 
         .btn-primary:hover {
-            background-color: #3700b3;
+            background-color: #008e76;
         }
 
         /* Subtle text color for help text */
         .form-text {
-            color: #757575;
+            color: #777;
         }
     </style>
 </head>

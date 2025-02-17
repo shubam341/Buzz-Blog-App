@@ -10,36 +10,12 @@
             background-color: #0D0D0D;
             font-family: 'Arial', sans-serif;
             color: #e0e0e0;
-            padding: 20px;
+           
         }
 
-        /* Navbar styling */
-        nav {
-            background-color: #1A1A1A; /* Darker background for navbar */
-            padding: 15px 30px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 999;
-        }
 
-        nav a {
-            color: #e0e0e0;
-            text-decoration: none;
-            margin-right: 20px;
-            font-size: 16px;
-        }
+       
 
-        nav a:hover {
-            color: #2979ff; /* Electric blue color on hover */
-        }
-
-        nav .active {
-            color: #2979ff; /* Active link color */
-        }
-
-        /* Main container adjustments to prevent overlap with fixed navbar */
         .container {
             max-width: 400px;
             margin-top: 80px; /* Added margin to account for fixed navbar */
@@ -90,13 +66,9 @@
 </head>
 <body>
     
-    <!-- Navbar -->
-    <nav>
-        <a href="/" class="active">Home</a>
-        <a href="/user/signin">Sign In</a>
-        <a href="/user/signup">Sign Up</a>
-    </nav>
-    
+   
+    <%- include('./partials/nav') %> 
+
     <div class="container mt-4">
         <form action="/user/signin" method="post">
             <div class="mb-3" >

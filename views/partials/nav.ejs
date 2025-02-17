@@ -1,12 +1,12 @@
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Blogify</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
@@ -32,7 +32,6 @@
             <a class="nav-link" href="/user/signin">Sign in</a>
           </li>
         <% } %>
-
       </ul>
     </div>
   </div>
@@ -47,41 +46,75 @@
 
 <!-- CUSTOM CSS -->
 <style>
+  /* Importing Google Font for Modern Look */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+  }
+
   /* General Navbar Styling */
+  .navbar {
+    padding: 15px 30px;
+  }
+
+  .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+    letter-spacing: 1px;
+  }
+
+  .navbar-brand:hover {
+    color: #ffc107 !important;
+  }
+
   .navbar-nav .nav-link {
     transition: all 0.3s ease-in-out;
-    color: white !important;
-    padding: 10px 15px;
-    border-radius: 5px;
+    color: #f8f9fa !important;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
   }
 
   /* Hover Effect */
   .navbar-nav .nav-link:hover {
-    background-color: #f8f9fa;
     color: #343a40 !important;
-    transform: scale(1.05);
+    background-color: #ffc107;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
   }
 
-  /* Click Effect */
+  /* Active Click Effect */
   .navbar-nav .nav-link:active {
-    transform: scale(0.95);
+    transform: translateY(1px);
     transition: 0.1s;
   }
 
   /* Dropdown Menu Styling */
   .dropdown-menu {
-    background-color: #343a40;
+    background-color: #ffffff;
     border: none;
-    transition: opacity 0.3s ease-in-out;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
   }
 
   .dropdown-menu .dropdown-item {
-    color: white !important;
+    color: #343a40 !important;
     transition: all 0.3s ease-in-out;
+    padding: 10px 20px;
   }
 
   .dropdown-menu .dropdown-item:hover {
-    background-color: #495057;
+    background-color: #f8f9fa;
+    color: #ffc107 !important;
+    transform: translateX(5px);
   }
 
   /* Navbar Toggler Button */
@@ -91,7 +124,7 @@
   }
 
   .navbar-toggler:hover {
-    transform: rotate(90deg);
+    transform: rotate(180deg);
   }
 
   /* Alert Styling */
@@ -100,12 +133,15 @@
     top: 10px;
     right: 10px;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease-in-out;
+    font-weight: 500;
+    background-color: #dc3545;
+    color: white;
   }
 
-  /* Keyframes for smooth animation */
+  /* Keyframes for Smooth Animation */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -114,6 +150,14 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  /* Media Queries for Responsiveness */
+  @media (max-width: 991.98px) {
+    .navbar-nav .nav-link {
+      margin: 5px 0;
+      text-align: center;
     }
   }
 </style>

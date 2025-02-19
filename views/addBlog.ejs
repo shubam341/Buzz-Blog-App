@@ -1,44 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- FOR CONEECTING BOILER PLATE TO HOME FROM HEAD.EJS -->
     <%- include('./partials/head') %>     
-    <title>New Blog Page </title>
+    <title>New Blog Page</title>
+    <style>
+        /* Background */
+        body {
+            background: linear-gradient(135deg, #1c1c1c, #121212);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Navbar remains at the top */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        /* Heading Animation */
+        h2 {
+            color: #ffffff;
+            font-size: 30px;
+            font-weight: 600;
+            text-align: left;
+            margin-top: 10px;
+            margin-left: 10%;
+            animation: slideIn 1s ease-in-out;
+            position: relative;
+        }
+
+        h2 {
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 80px;
+    margin-left: 10%;
+    position: relative;
+    animation: fadeInSlide 1s ease-in-out, glowEffect 2s infinite alternate;
+}
+
+/* Fade In + Slide from Left */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Glowing Effect */
+@keyframes glowEffect {
+    from {
+        text-shadow: 0 0 5px rgba(98, 0, 234, 0.6);
+    }
+    to {
+        text-shadow: 0 0 15px rgba(98, 0, 234, 1);
+    }
+}
+
+/* Animated Underline */
+h2::after {
+    content: "";
+    width: 60px;
+    height: 5px;
+    background: #6200ea;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    border-radius: 3px;
+    animation: underlineExpand 1s ease-in-out;
+}
+
+@keyframes underlineExpand {
+    from {
+        width: 0;
+    }
+    to {
+        width: 60px;
+    }
+}
+
+        /* Form Styling */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-label {
+            color: #b3b3b3;
+            font-weight: 500;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #6200ea;
+            box-shadow: 0 0 10px rgba(98, 0, 234, 0.5);
+        }
+
+      /* Style the file input */
+input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #2c2c2c;
+    border: 2px solid #444;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+input[type="file"]:hover {
+    background-color: #333;
+    border-color: #6200ea;
+    box-shadow: 0 0 10px rgba(98, 0, 234, 0.5);
+}
+
+/* Focus (when clicked) */
+input[type="file"]:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.8);
+    transform: scale(1.05);
+}
+
+/* Animation on Page Load */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+input[type="file"] {
+    animation: fadeInScale 0.8s ease-in-out;
+}
+
+
+        /* Submit Button */
+        .btn-primary {
+            background: linear-gradient(135deg, #6200ea, #3700b3);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(98, 0, 234, 0.6);
+        }
+
+        /* Aligning form elements properly */
+        .mb-3 {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+
+
+
+        /* Style the title input field */
+#title {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #2c2c2c;
+    border: 2px solid #444;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Hover Effect */
+#title:hover {
+    background-color: #333;
+    border-color: #6200ea;
+    box-shadow: 0 0 10px rgba(98, 0, 234, 0.5);
+}
+
+/* Focus (when clicked) */
+#title:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.8);
+    transform: scale(1.02);
+}
+
+/* Animation on Page Load */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#title {
+    animation: fadeInSlide 0.8s ease-in-out;
+}
+
+
+       /* Style the textarea */
+textarea {
+    
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #2c2c2c;
+    border: 2px solid #444;
+    border-radius: 8px;
+    outline: none;
+    height: 150px;
+    resize: vertical;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Hover Effect */
+textarea:hover {
+    background-color: #333;
+     transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(98, 0, 234, 0.6);
+}
+
+/* Focus (when clicked) */
+textarea:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.8);
+    transform: scale(1.02);
+}
+
+/* Animation on Page Load */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+textarea {
+    animation: fadeInSlide 0.8s ease-in-out;
+}
+
+
+
+/* Style the file input container */
+#coverImage {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #2c2c2c;
+    border: 2px solid #444;
+    border-radius: 8px; /* Rounded corners */
+    outline: none;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+/* Custom styling for file input button */
+#coverImage::-webkit-file-upload-button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover effect */
+#coverImage::-webkit-file-upload-button:hover {
+    background-color: #3700b3;
+    transform: scale(1.05);
+}
+
+/* Focus effect */
+#coverImage:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.8);
+}
+
+/* Page Load Animation */
+@keyframes fadeInFileInput {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#coverImage {
+    animation: fadeInFileInput 0.8s ease-in-out;
+}
+
+
+
+    </style>
 </head>
 <body>
-    
+
     <%- include('./partials/nav') %> 
 
+    <h2>Create a New Blog</h2>
+    
+    <div class="container">
+        <form action="/blog" method="post" enctype="multipart/form-data">
+            
+            <div class="mb-3">
+                <label for="coverImage" class="form-label">Cover Image</label>
+                <input type="file" class="form-control" id="coverImage" name="coverImage">
+            </div>
 
-   <div class="container mt-4">
-    <form  action="/blog" method="post"  enctype="multipart/form-data"
-    > <div class="mb-3">
-        <label for="coverImage" class="form-label">Cover Image</label>
-        <input type="file" class="form-control" id="coverImage" name="coverImage" aria-describedby="coverImage">
-        <div id="emailHelp" class="form-text"></div>
-      </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
 
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <textarea name="body" class="form-control" id="body"></textarea>
+            </div>
 
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text"></div>
-        </div>
-   </div>
-
-
-   <div class=" container mb-3">
-    <label for="body">Body</label>
-    <textarea name="body" class="form-control" id="body"></textarea>
-    <div class="  mt-4">
-        <button class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
-  
-</div>
 
-
-
-</form>
     <%- include('./partials/script') %> 
 </body>
 </html>

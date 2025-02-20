@@ -1,31 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- FOR CONEECTING BOILER PLATE TO HOME FROM HEAD.EJS -->
     <%- include('./partials/head') %>     
-    <title>Home page</title>
+    <title>Home - Blogs</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #222222, #181818) !important;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 50px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-container {
+            width: 80%;
+            margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .blog-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .blog-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .blog-body {
+            font-size: 14px;
+            color: #ddd;
+            margin-top: 8px;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            color: #6200ea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #3700b3;
+        }
+    </style>
 </head>
 <body>
-    
-    <%- include('./partials/nav') %>
-    
-<!-- CARD FOR CONVERTING ID COMING ON HOME PAGE -->
- <div class="container mt-1 row row-col-3 box-border h-3 w-7 p-3  ">
-    <% blogs.forEach(blog => { %>
-        <div class="col">
-        <div class="card col" style="width: 20rem; height:33rem;">
-            <img src="<%= blog.coverImageURL  %>" class="card-img-top border-sky-500" box>
-            <div class="card-body">
-              <h5 class="card-title"><%= blog.title  %></h5>
-              <a href="/blog/<%= blog._id  %>" class="btn btn-primary">View</a>
+    <%- include('./partials/nav') %> 
+    <h1>Latest Blogs</h1>
+    <div class="blog-container">
+        <% blogs.forEach(blog => { %>
+            <div class="blog-card">
+                <img src="<%= blog.coverImagePath %>" alt="Cover Image">
+                <div class="blog-title"><%= blog.title %></div>
+                <div class="blog-body"><%= blog.body.substring(0, 100) %>...</div>
+                <a href="/blog/<%= blog._id %>" class="read-more">Read More</a>
             </div>
-          </div>
-          </div>
-    <% }) %>
- </div>
-    
-    
-
+        <% }) %>
+    </div>
     <%- include('./partials/script') %> 
 </body>
 </html>

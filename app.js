@@ -12,6 +12,8 @@ const cookieParser=require('cookie-parser');
 //getting blogs
 const Blog=require('./models/blog')
 
+
+
 const userRoute=require("./routes/user")
 const blogRoute=require("./routes/blog");
 
@@ -48,6 +50,7 @@ app.get("/",async(req,res)=>{
 
 app.use("/user", userRoute);
 app.use("/blog", blogRoute)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 

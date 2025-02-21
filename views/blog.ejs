@@ -1,55 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- FOR CONEECTING BOILER PLATE TO HOME FROM HEAD.EJS -->
     <%- include('./partials/head') %>     
     <title>Blog</title>
+    <style>
+        /* Styling the Comment Section */
+        .comments-section {
+            width: 70%;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .comments-section h1 {
+    font-size: 35px;
+    margin-left: 350px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(15px);
+    background: rgba(0, 132, 255, 0.15);  /* Light blue transparent */
+    box-shadow: 0 4px 15px rgba(0, 132, 255, 0.3);
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    animation: glassGlow 3s infinite alternate ease-in-out;
+}
+
+/* Soft Blue Glow Animation */
+@keyframes glassGlow {
+    from {
+        box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3);
+    }
+    to {
+        box-shadow: 0 8px 20px rgba(0, 132, 255, 0.5);
+    }
+}
+
+/* Glass Distortion Effect */
+.comments-section h1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(0, 132, 255, 0.05) 10%,
+        rgba(0, 132, 255, 0.3) 50%,
+        rgba(0, 132, 255, 0.05) 90%
+    );
+    animation: shimmer 4s infinite linear;
+}
+
+/* Shimmering Light Animation */
+@keyframes shimmer {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+
+        /* Comment Input Field */
+        .comment-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .comment-box input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .comment-box input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .comment-box button {
+            padding: 10px 15px;
+            border: none;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            font-weight: bold;
+            margin-top: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .comment-box button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        }
+
+        /* Individual Comment Styling */
+        .comment {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* User Avatar */
+        .comment img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .comment img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Comment Content */
+        .comment-text {
+            font-size: 16px;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        /* User Name */
+        .comment-author {
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .comments-section {
+                width: 90%;
+            }
+            .comment-box {
+                flex-direction: column;
+            }
+            .comment-box input {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    
     <%- include('./partials/nav') %>
-    <div class="conatiner mt-3">
-     <h1><%= blog.title  %></h1>
-     <img src="<%= blog.coverImageURL  %>" width="700px">
-    <pre class="mt-3"><%= blog.body  %></pre>
-    </div>
-<!-- 
-    FOR SHOWING THE PERSON WHO ADD BLOG -->
-    <div class="container mt-4">
-        <img src="<%= blog.createdBy.profileImageURL  %>" width="100px" > <%= blog.createdBy.fullName %>
+    
+    <div class="container mt-3">
+        <h1><%= blog.title %></h1>
+        <img src="<%= blog.coverImageURL %>" width="700px">
+        <pre class="mt-3"><%= blog.body %></pre>
     </div>
 
-<!-- CREATING COMMENT -->
-  <div class="container" mt-3>
-    <h1>Comments (<%= comments.length %>)</h1>
-   
-   <% if (locals.user) { %>
+    <!-- Author Info -->
     <div class="container mt-4">
-        <form action="/blog/comment/<%= blog._id %>" method="post">
-           
+        <img src="<%= blog.createdBy.profileImageURL %>" width="100px"> <%= blog.createdBy.fullName %>
+    </div>
 
-            <div class="mb-3" >         
-              <input type="text" 
-              name="content" class="form-control"
-              placeholder="Enter your comment"/>
-              <button class="btn btn-sm btn-primary" type="submit">Add</button>
+    <!-- Comment Section -->
+    <div class="comments-section">
+        <h1>Comments (<%= comments.length %>)</h1>
+
+        <% if (locals.user) { %>
+        <div class="comment-box">
+            <form action="/blog/comment/<%= blog._id %>" method="post">
+                <input type="text" name="content" class="form-control" placeholder="Enter your comment">
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <% } else { %>
+            <p class="login-message" style="text-align: center; color: #ff4b2b;">You must be logged in to comment.</p>
+        <% } %>
+
+        <div class="mt-3">
+            <% comments.forEach(comment => { %>
+            <div class="comment">
+                <img src="<%= comment.createdBy.profileImageURL %>" alt="User Avatar">
+                <div>
+                    <div class="comment-author"><%= comment.createdBy.fullName %></div>
+                    <div class="comment-text"><%= comment.content %></div>
+                </div>
             </div>
-</form>
+            <% }) %>
+        </div>
+    </div>
 
-   <% } %>
-   <div class="mt-3">
-    <% comments.forEach(comment => { %>
-     <div>
-        <img src="<%= comment.createdBy.profileImageURL  %>" width="50px" >
-         <%= comment.createdBy.fullName %>
-         <pre><%= comment.content %></pre>
-     </div>
-    <% }) %>
-</div>
-
-  </div>
-
-
-    <%- include('./partials/script') %> 
+    <%- include('./partials/script') %>
 </body>
 </html>

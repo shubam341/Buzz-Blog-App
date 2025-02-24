@@ -3,8 +3,10 @@
 <head>
     <%- include('./partials/head') %>     
     <title>Blog</title>
+
+
     <style>
-        /* Styling the Comment Section */
+     
         .comments-section {
             width: 70%;
             margin: 40px auto;
@@ -33,7 +35,7 @@
     animation: glassGlow 3s infinite alternate ease-in-out;
 }
 
-/* Soft Blue Glow Animation */
+
 @keyframes glassGlow {
     from {
         box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3);
@@ -206,10 +208,12 @@
             <p class="login-message" style="text-align: center; color: #ff4b2b;">You must be logged in to comment.</p>
         <% } %>
 
+
+
         <div class="mt-3">
             <% comments.forEach(comment => { %>
             <div class="comment">
-                <img src="<%= comment.createdBy.profileImageURL %>" alt="User Avatar">
+                <img src="<%= comment.createdBy.profileImageURL ? comment.createdBy.profileImageURL : '/images/default-avatar.png' %>" alt="User Avatar" onerror="this.onerror=null; this.src='/images/default-avatar.png';">
                 <div>
                     <div class="comment-author"><%= comment.createdBy.fullName %></div>
                     <div class="comment-text"><%= comment.content %></div>
@@ -217,6 +221,9 @@
             </div>
             <% }) %>
         </div>
+
+
+        
     </div>
 
     <%- include('./partials/script') %>

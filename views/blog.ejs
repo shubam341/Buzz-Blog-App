@@ -1,179 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('./partials/head') %>     
-    <title>Blog</title>
-
-
+    <%- include('./partials/head') %>
+    <title><%= blog.title %></title>
     <style>
-     
-        .comments-section {
-            width: 70%;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-            animation: fadeIn 1s ease-in-out;
+        body {
+            background: white;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
         }
 
-        .comments-section h1 {
-    font-size: 35px;
-    margin-left: 350px;
-    text-align: center;
-    font-weight: bold;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 12px;
-    backdrop-filter: blur(15px);
-    background: rgba(0, 132, 255, 0.15);  /* Light blue transparent */
-    box-shadow: 0 4px 15px rgba(0, 132, 255, 0.3);
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    animation: glassGlow 3s infinite alternate ease-in-out;
-}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-@keyframes glassGlow {
-    from {
-        box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3);
-    }
-    to {
-        box-shadow: 0 8px 20px rgba(0, 132, 255, 0.5);
-    }
-}
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
 
-/* Glass Distortion Effect */
-.comments-section h1::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 300%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        rgba(0, 132, 255, 0.05) 10%,
-        rgba(0, 132, 255, 0.3) 50%,
-        rgba(0, 132, 255, 0.05) 90%
-    );
-    animation: shimmer 4s infinite linear;
-}
+        pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
 
-/* Shimmering Light Animation */
-@keyframes shimmer {
-    from {
-        left: -100%;
-    }
-    to {
-        left: 100%;
-    }
-}
-
-
-        /* Comment Input Field */
-        .comment-box {
+        .author-info {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        .author-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #3498db;
+        }
+
+        .author-info span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .comments-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comments-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .comment-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .comment-box input {
-            width: 100%;
-            padding: 12px;
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            border: none;
+            font-size: 1rem;
             outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transition: all 0.3s ease-in-out;
         }
 
         .comment-box input:focus {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
         }
 
         .comment-box button {
-            padding: 10px 15px;
-            border: none;
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            padding: 10px 20px;
+            background: #3498db;
             color: white;
-            font-weight: bold;
-            margin-top: 5px;
-            border-radius: 6px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out;
+            transition: background 0.3s ease;
         }
 
         .comment-box button:hover {
-            transform: scale(1.1);
-            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            background: #2980b9;
         }
 
-        /* Individual Comment Styling */
+        .login-message {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         .comment {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-bottom: 20px;
             padding: 15px;
+            background: white;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
-            animation: slideIn 0.5s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* User Avatar */
         .comment img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid white;
-            transition: transform 0.3s ease-in-out;
+            border: 2px solid #3498db;
         }
 
-        .comment img:hover {
-            transform: scale(1.1);
+        .comment-content {
+            flex: 1;
         }
 
-        /* Comment Content */
-        .comment-text {
-            font-size: 16px;
-            color: #ddd;
-            line-height: 1.5;
-        }
-
-        /* User Name */
         .comment-author {
             font-weight: bold;
-            color: #ffeb3b;
+            color: #2c3e50;
+            margin-bottom: 5px;
         }
 
-        /* Responsive Design */
+        .comment-text {
+            font-size: 1rem;
+            color: #555;
+        }
+
         @media (max-width: 768px) {
-            .comments-section {
-                width: 90%;
+            .container {
+                padding: 10px;
             }
+
+            h1 {
+                font-size: 2rem;
+            }
+
             .comment-box {
                 flex-direction: column;
             }
-            .comment-box input {
+
+            .comment-box button {
                 width: 100%;
             }
         }
@@ -181,49 +176,52 @@
 </head>
 <body>
     <%- include('./partials/nav') %>
-    
-    <div class="container mt-3">
+
+    <div class="container">
+        <!-- Blog Title -->
         <h1><%= blog.title %></h1>
-        <img src="<%= blog.coverImageURL %>" width="700px">
-        <pre class="mt-3"><%= blog.body %></pre>
-    </div>
 
-    <!-- Author Info -->
-    <div class="container mt-4">
-        <img src="<%= blog.createdBy.profileImageURL %>" width="100px"> <%= blog.createdBy.fullName %>
-    </div>
+        <!-- Blog Cover Image -->
+        <img src="<%= blog.coverImageURL %>" alt="Blog Cover Image">
 
-    <!-- Comment Section -->
-    <div class="comments-section">
-        <h1>Comments (<%= comments.length %>)</h1>
+        <!-- Blog Body -->
+        <pre><%= blog.body %></pre>
 
-        <% if (locals.user) { %>
-        <div class="comment-box">
-            <form action="/blog/comment/<%= blog._id %>" method="post">
-                <input type="text" name="content" class="form-control" placeholder="Enter your comment">
-                <button type="submit">Add</button>
-            </form>
+        <!-- Author Info -->
+        <div class="author-info">
+            <img src="<%= blog.createdBy.profileImageURL %>" alt="Author Profile Image">
+            <span><%= blog.createdBy.fullName %></span>
         </div>
-        <% } else { %>
-            <p class="login-message" style="text-align: center; color: #ff4b2b;">You must be logged in to comment.</p>
-        <% } %>
 
+        <!-- Comment Section -->
+        <div class="comments-section">
+            <h2>Comments (<%= comments.length %>)</h2>
 
-
-        <div class="mt-3">
-            <% comments.forEach(comment => { %>
-            <div class="comment">
-                <img src="<%= comment.createdBy.profileImageURL ? comment.createdBy.profileImageURL : '/images/default-avatar.png' %>" alt="User Avatar" onerror="this.onerror=null; this.src='/images/default-avatar.png';">
-                <div>
-                    <div class="comment-author"><%= comment.createdBy.fullName %></div>
-                    <div class="comment-text"><%= comment.content %></div>
+            <!-- Comment Input Box -->
+            <% if (locals.user) { %>
+                <div class="comment-box">
+                    <form action="/blog/comment/<%= blog._id %>" method="post">
+                        <input type="text" name="content" class="form-control" placeholder="Enter your comment">
+                        <button type="submit">Add Comment</button>
+                    </form>
                 </div>
+            <% } else { %>
+                <p class="login-message">You must be logged in to comment.</p>
+            <% } %>
+
+            <!-- Comments List -->
+            <div class="mt-3">
+                <% comments.forEach(comment => { %>
+                    <div class="comment">
+                        <img src="<%= comment.createdBy.profileImageURL ? comment.createdBy.profileImageURL : '/images/default-avatar.png' %>" alt="User Avatar" onerror="this.onerror=null; this.src='/images/default-avatar.png';">
+                        <div class="comment-content">
+                            <div class="comment-author"><%= comment.createdBy.fullName %></div>
+                            <div class="comment-text"><%= comment.content %></div>
+                        </div>
+                    </div>
+                <% }) %>
             </div>
-            <% }) %>
         </div>
-
-
-        
     </div>
 
     <%- include('./partials/script') %>

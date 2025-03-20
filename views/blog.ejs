@@ -4,6 +4,7 @@
     <%- include('./partials/head') %>
     <title><%= blog.title %></title>
     <style>
+        /* General Styles */
         body {
             background: white;
             font-family: 'Arial', sans-serif;
@@ -13,28 +14,42 @@
             padding: 0;
         }
 
-        .container {
+        /* Container for the blog content */
+        .blog-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
+            background: white;
         }
 
+        /* Blog Title */
         h1 {
             font-size: 2.5rem;
             font-weight: bold;
             color: #2c3e50;
             margin-bottom: 20px;
-            text-align: center;
+            text-align: left;
         }
 
-        img {
-            max-width: 100%;
+        /* Blog Cover Image */
+        .cover-image {
+            width: 200px; /* Smaller size */
             height: auto;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-right: 20px;
+            float: left; /* Align to the left */
         }
 
-        pre {
+        /* Blog Body */
+        .blog-body {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+            text-align: justify;
+            clear: both; /* Clear float */
+        }
+
+        .blog-body pre {
             white-space: pre-wrap;
             font-family: 'Courier New', Courier, monospace;
             background: #f9f9f9;
@@ -45,11 +60,13 @@
             line-height: 1.5;
         }
 
+        /* Author Info */
         .author-info {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 30px;
+            margin-top: 30px;
+            margin-bottom: 40px;
         }
 
         .author-info img {
@@ -65,12 +82,17 @@
             color: #2c3e50;
         }
 
+        /* Comment Section (Full Width) */
         .comments-section {
-            margin-top: 40px;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width */
+            margin: 40px 0;
+            padding: 40px 20px;
+            background: #f9f9f9; /* Light gray background */
+        }
+
+        .comments-section .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .comments-section h2 {
@@ -81,6 +103,7 @@
             text-align: center;
         }
 
+        /* Comment Input Box */
         .comment-box {
             display: flex;
             gap: 10px;
@@ -94,6 +117,7 @@
             border-radius: 8px;
             font-size: 1rem;
             outline: none;
+            background: white;
         }
 
         .comment-box input:focus {
@@ -116,6 +140,7 @@
             background: #2980b9;
         }
 
+        /* Login Message */
         .login-message {
             text-align: center;
             color: #e74c3c;
@@ -123,6 +148,7 @@
             margin-bottom: 20px;
         }
 
+        /* Individual Comment */
         .comment {
             display: flex;
             gap: 15px;
@@ -155,13 +181,21 @@
             color: #555;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .blog-container {
+                padding: 20px 10px;
             }
 
             h1 {
                 font-size: 2rem;
+            }
+
+            .cover-image {
+                width: 100%;
+                float: none;
+                margin-right: 0;
+                margin-bottom: 20px;
             }
 
             .comment-box {
@@ -177,24 +211,29 @@
 <body>
     <%- include('./partials/nav') %>
 
-    <div class="container">
+    <!-- Blog Section -->
+    <div class="blog-container">
         <!-- Blog Title -->
         <h1><%= blog.title %></h1>
 
         <!-- Blog Cover Image -->
-        <img src="<%= blog.coverImageURL %>" alt="Blog Cover Image">
+        <img src="<%= blog.coverImageURL %>" class="cover-image" alt="Blog Cover Image">
 
         <!-- Blog Body -->
-        <pre><%= blog.body %></pre>
+        <div class="blog-body">
+            <pre><%= blog.body %></pre>
+        </div>
 
         <!-- Author Info -->
         <div class="author-info">
             <img src="<%= blog.createdBy.profileImageURL %>" alt="Author Profile Image">
             <span><%= blog.createdBy.fullName %></span>
         </div>
+    </div>
 
-        <!-- Comment Section -->
-        <div class="comments-section">
+    <!-- Comment Section (Full Width) -->
+    <div class="comments-section">
+        <div class="container">
             <h2>Comments (<%= comments.length %>)</h2>
 
             <!-- Comment Input Box -->
